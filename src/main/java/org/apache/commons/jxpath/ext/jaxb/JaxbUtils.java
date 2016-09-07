@@ -13,7 +13,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * A helper class to simplify XPath like expression for JAXB objects.
+ * TLDR:
+ * Registers {@link CommonFunctions} that are used in predicates.
+ * Registers xmlns, xml, xsi, noNS namespaces in the parent context (JAXB has no context of prefixes)
+ * Adds user provided namespaces.
+ *
+ * Potential TODO: Move to {@link org.apache.commons.jxpath.ext.jaxb.model.JXPathContextFactoryImpl} ?
  */
 public class JaxbUtils {
     private static Logger LOG = LoggerFactory.getLogger(JaxbUtils.class);
