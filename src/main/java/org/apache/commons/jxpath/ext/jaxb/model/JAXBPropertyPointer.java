@@ -30,7 +30,11 @@ public class JAXBPropertyPointer extends BeanPropertyPointer {
             super.setPropertyName(propertyName);
     }
 
-    @Override
+
+    /**
+     * //Once the {@link javax.xml.bind.annotation.XmlValue} stuff is figured out, this can be enabled. Otherwise this hides the true objects without good reason.
+     *
+     * @Override
     public NodePointer getImmediateValuePointer() {
         NodePointer wrapperPointer = super.getImmediateValuePointer();
         JAXBPropertyDescriptor descriptor = JAXBPointer.getNodeName(this, beanInfo, new QName(getPropertyName()));
@@ -63,7 +67,7 @@ public class JAXBPropertyPointer extends BeanPropertyPointer {
         else
             super.setValue(value);
     }
-
+*/
     @Override
     public NodePointer createPath(JXPathContext context) {
         return super.createPath(context);
