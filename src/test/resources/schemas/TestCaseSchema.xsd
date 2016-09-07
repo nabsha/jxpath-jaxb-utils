@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:jxpath-jaxb-utils" xmlns:tns="urn:jxpath-jaxb-utils" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="qualified">
+    <xsd:element name="rootElement">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element ref="tns:recurringElement" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:attribute name="qualifiedAttribute" type="xsd:string" form="qualified"/>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:element name="recurringElement" type="tns:RepeatingSequenceType"/>
+    <xsd:complexType name="RepeatingSequenceType">
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="nonSequencedTypeElement1" type="xsd:string" />
+            <xsd:element minOccurs="0" name="nonSequencedTypeElement2" type="xsd:string"/>
+            <xsd:element name="nonQualifiedElement" type="tns:RepeatingSequenceType" form="unqualified"/>
+        </xsd:sequence>
+        <xsd:attribute name="unqualifiedAttribute" type="xsd:string" form="unqualified"/>
+        <xsd:attribute name="unqualifiedAttribute1" type="xsd:string" form="unqualified"/>
+    </xsd:complexType>
+    <xsd:complexType name="RepeatingSequenceSubType">
+       <xsd:complexContent>
+           <xsd:extension base="tns:RepeatingSequenceType">
+               <xsd:sequence>
+                   <xsd:element minOccurs="0" name="nonSequencedSubTypeElement1" type="xsd:string"/>
+                   <xsd:element minOccurs="0" name="xmlValue" type="tns:xmlValueType"/>
+               </xsd:sequence>
+           </xsd:extension>
+       </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="RepeatingSequenceSubType2">
+        <xsd:complexContent>
+            <xsd:extension base="tns:RepeatingSequenceSubType">
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    <xsd:complexType name="xmlValueType">
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:integer">
+                <xsd:attribute name="xmlValueAttribute" type="xsd:string"/>
+                    </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+</xsd:schema>
