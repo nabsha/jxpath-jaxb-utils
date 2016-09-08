@@ -5,6 +5,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.IteratorUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.jxpath.ExpressionContext;
+import org.apache.commons.jxpath.JXPathException;
 import org.apache.commons.jxpath.Pointer;
 import org.apache.commons.jxpath.ri.model.NodePointer;
 import org.junit.BeforeClass;
@@ -155,6 +156,14 @@ public class JXPathJaxbUtilsTest {
         Assert.assertEquals("Qualified and wildcard prefix should return the same result", UTIL.getValue(validRootElement, "targetNs:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceType')]/targetNs:nonSequencedTypeElement1"), UTIL.getValue(validRootElement, "*:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceType')]/*:nonSequencedTypeElement1"));
         Assert.assertFalse("Qualified XPath should not return anything", UTIL.getValues(validRootElement, "targetNs:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceSubType')]/nonQualifiedElement").hasNext());
         Assert.assertEquals("Qualified and wildcard prefix should return the same result", UTIL.getValue(validRootElement, "targetNs:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceSubType')]/nonQualifiedElement"), UTIL.getValue(validRootElement, "*:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceSubType')]/*:nonQualifiedElement"));
+        Assert.assertEquals("Qualified and wildcard prefix should return the same result", UTIL.getValue(validRootElement, "*:recurringElement[namespace-uri() = 'urn:jxpath-jaxb-utils' and xsi:isClass('org.mikehan.testschema.RepeatingSequenceSubType')]/nonQualifiedElement[namespace-uri() = '']"), UTIL.getValue(validRootElement, "*:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceSubType')]/*:nonQualifiedElement"));
+    }
+
+    @Test(expected = JXPathException.class)
+    public void whenUnknownPrefixIsSuppliedExceptionIsExpected() throws XPathExpressionException {
+        RootElement validRootElement = createValidRootElement();
+
+        UTIL.getValues(validRootElement, "badPrefix:recurringElement[xsi:isClass('org.mikehan.testschema.RepeatingSequenceType')]/nonSequencedTypeElement1");
     }
 
     @Test

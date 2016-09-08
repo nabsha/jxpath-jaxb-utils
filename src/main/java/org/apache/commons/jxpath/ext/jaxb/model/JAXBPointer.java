@@ -63,13 +63,17 @@ public class JAXBPointer extends BeanPointer {
 
     @Override
     public String getNamespaceURI() {
+//        if(parent != null){
+//           return getNamespaceURI(qname.getPrefix());
+//        }
         return beanInfo.getNamespaceURI();
     }
 
     @Override
     public String getNamespaceURI(String prefix) {
         String uri = getNamespaceResolver().getNamespaceURI(prefix);
-        if(uri == null){//Prefix not defined
+        if(uri == null && prefix != null && !"*".equals(prefix)){//Prefix not defined
+            throw new JXPathException("Prefix {" + prefix + "} is not valid in this context.");
             }
         return uri;
     }

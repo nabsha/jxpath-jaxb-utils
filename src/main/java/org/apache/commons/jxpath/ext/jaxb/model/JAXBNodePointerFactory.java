@@ -18,9 +18,9 @@ public class JAXBNodePointerFactory extends BeanPointerFactory {
 
     private static final transient Map<Class, JXPathJAXBBeanInfo> CLASS_INFO = new LinkedHashMap();
 
-
+    // Runs before BeanPointerFactory from which it inherits
     public int getOrder() {
-        return 1;
+        return super.getOrder() - 1;
     }
 
     public NodePointer createNodePointer(QName name, Object bean, Locale locale) {

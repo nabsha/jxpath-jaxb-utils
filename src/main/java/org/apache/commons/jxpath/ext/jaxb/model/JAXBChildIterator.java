@@ -1,5 +1,6 @@
 package org.apache.commons.jxpath.ext.jaxb.model;
 
+import org.apache.commons.jxpath.JXPathException;
 import org.apache.commons.jxpath.ri.QName;
 import org.apache.commons.jxpath.ri.model.NodePointer;
 import org.apache.commons.jxpath.ri.model.beans.BeanPointer;
